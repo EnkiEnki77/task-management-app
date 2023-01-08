@@ -2,7 +2,8 @@ import express from 'express'
 import morgan from 'morgan'
 import cors from 'cors'
 import userRouter from './routes/userRouter'
-// import boardRouter from './routes/boardRouter'
+import boardRouter from './routes/boardRouter'
+import { protect } from './modules/auth'
 
 const app = express()
 
@@ -11,7 +12,7 @@ app.use(morgan("dev"))
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
 
-// app.use("/api", boardRouter)
+app.use("/api", protect, boardRouter)
 
 app.use(userRouter)
 
