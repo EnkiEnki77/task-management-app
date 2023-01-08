@@ -10,12 +10,23 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Board {
+model User {
+  //here we are defining the name of the field, its type, the directive, and what it defaults to, in this case a uuid
+  //which returns a unique string.
   id        String   @id @default(uuid())
   createdAt DateTime @default(now())
+  username  String   @unique
+  password  String
+  boards    Board[]
+}
 
-  name    String   @unique
-  columns Column[]
+model Board {
+  id          String   @id @default(uuid())
+  createdAt   DateTime @default(now())
+  name        String   @db.VarChar(255)
+  belongsToId String
+  belongsTo   User     @relation(fields: [belongsToId], references: [id])
+  columns     Column[]
 }
 
 model Column {
