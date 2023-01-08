@@ -11,3 +11,7 @@ export const hashedPassword = (password: string) => {
     //you should always add a salt to your hash, this makes it harder to guess. 
    return bcrypt.hash(password, 5)
  }
+
+export const compareHashed = (password: string, hash: string) => {
+    return bcrypt.compare(password, hash)
+}
