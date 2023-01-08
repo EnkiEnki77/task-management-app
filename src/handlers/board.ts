@@ -13,10 +13,9 @@ export const createBoard = async (req, res, next) => {
 }
 
 export const getBoard = async (req, res, next) => {
-    const board = await prisma.board.findFirst({
+    const board = await prisma.board.findUnique({
         where: {
-            name: req.body.name,
-           
+            id: req.params.id  
         }
     })
 

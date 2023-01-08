@@ -5,8 +5,8 @@ const router = Router()
 
 router.post('/board', createBoard)
 
-router.get('/board', getBoard)
+router.get('/board/:id', getBoard)
 
-router.get('/board/:id', getBoards)
+router.get('/board', getBoards)
 
 export default router 
