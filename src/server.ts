@@ -4,6 +4,7 @@ import cors from 'cors'
 import userRouter from './routes/userRouter'
 import boardRouter from './routes/boardRouter'
 import { protect } from './modules/auth'
+import { handleRouteErrors } from './modules/middleware'
 
 const app = express()
 
@@ -15,5 +16,7 @@ app.use(express.urlencoded({extended: true}))
 app.use("/api", protect, boardRouter)
 
 app.use(userRouter)
+
+app.use(handleRouteErrors)
 
 export default app
