@@ -1,5 +1,5 @@
 import {Router} from "express"
-import {createBoard, getBoard, getBoards} from "../handlers/board"
+import {createBoard, deleteBoard, getBoard, getBoards} from "../handlers/board"
 import {body} from 'express-validator'
 import { handleValidationErrors } from "../modules/middleware"
 
@@ -10,5 +10,7 @@ router.post('/board', body('name').isString(), handleValidationErrors, createBoa
 router.get('/board/:id', getBoard)
 
 router.get('/board', getBoards)
+
+router.delete('/board/:id', deleteBoard)
 
 export default router 

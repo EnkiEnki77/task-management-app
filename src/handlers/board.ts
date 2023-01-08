@@ -34,3 +34,20 @@ export const getBoards = async (req, res, next) => {
     res.json({data: board})}
     catch(err){next(err)}
 }
+
+export const deleteBoard = async (req, res, next) => {
+    const board = await prisma.board.findFirst({
+        where: {
+            id:req.params.id,
+            belongsToId: req.user.id,
+        }
+    })
+
+    const deleteBoard = await prisma.board.delete({
+        where: {
+            id: board.id, 
+        }
+    })
+
+    res.json({message:`The ${deleteBoard.name} board was deleted from the database.`})
+}
