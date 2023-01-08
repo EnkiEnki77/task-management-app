@@ -13,6 +13,6 @@ router.get('/board', getBoards)
 
 router.delete('/board/:id', deleteBoard)
 
-router.put('/board/:id', body('name').optional().isString(), handleValidationErrors, createBoard)editBoard)
+router.put('/board/:id', body('name').optional().isString(), handleValidationErrors, editBoard)
 
 export default router 

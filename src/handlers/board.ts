@@ -36,7 +36,7 @@ export const getBoards = async (req, res, next) => {
 }
 
 export const deleteBoard = async (req, res, next) => {
-    const board = await prisma.board.findFirst({
+    try{const board = await prisma.board.findFirst({
         where: {
             id:req.params.id,
             belongsToId: req.user.id,
@@ -49,11 +49,14 @@ export const deleteBoard = async (req, res, next) => {
         }
     })
 
-    res.json({message:`The ${deleteBoard.name} board was deleted from the database.`})
+    res.json({message:`The ${deleteBoard.name} board was deleted from the database.`})}
+    catch(err){
+        next(err)
+    }
 }
 
 export const editBoard = async (req, res, next) => {
-    const board = await prisma.board.findFirst({
+    try{const board = await prisma.board.findFirst({
         where: {
             belongsToId: req.user.id,
             id: req.params.id
@@ -69,7 +72,8 @@ export const editBoard = async (req, res, next) => {
         }
     })
 
-    res.json({message: `Changes were made to ${board.name}`, original: board, updates: updatedBoard })
-
-    res.json({message:`The ${deleteBoard.name} board was deleted from the database.`})
+    res.json({message: `Changes were made to ${board.name}`, original: board, updates: updatedBoard })}
+    catch(err){
+        next(err)
+    }
 }
