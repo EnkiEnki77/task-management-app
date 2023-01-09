@@ -24,3 +24,4 @@ export const handleRouteErrors = (error, req, res, next) => {
         .json({ message: 'server error' })
     }
 }
+

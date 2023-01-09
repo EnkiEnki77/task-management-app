@@ -3,19 +3,19 @@ import prisma from "../db"
 
 export const createBoard = async (req, res, next) => {
     try{  
-        const params = req.params
-        const columnArray = Array(3).fill({name: ''})
+        const {name, ...column} = req.body
+        const columnArray = []
+
+        for (const [key, value] of Object.entries(column)) {
+            columnArray.push({name: value});
+          }
         
         const board = await prisma.board.create({
             data: {
                 name: req.body.name,
                 belongsToId: req.user.id,
                 columns: {
-                    create: [
-                        {name: "coont"},
-                        {name: "suck"},
-                        {name: "dick"},
-                    ]
+                    create: columnArray
                 }
                 
             },
@@ -24,7 +24,7 @@ export const createBoard = async (req, res, next) => {
             }
         })
 
-       console.log(params)
+       console.log(columnArray)
 
     res.json({message: `Created ${board.name} board`, board})}
     catch(err){
