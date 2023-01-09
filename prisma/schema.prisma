@@ -33,7 +33,7 @@ model Column {
   id        String   @id @default(uuid())
   createdAt DateTime @default(now())
 
-  name String @unique
+  name String
 
   boardId String
   board   Board  @relation(fields: [boardId], references: [id])

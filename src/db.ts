@@ -1,4 +1,6 @@
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient, Prisma} from "@prisma/client";
+
+
 
 //to look at your db type npx prisma studio
 

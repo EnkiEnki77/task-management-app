@@ -2,25 +2,39 @@ import prisma from "../db"
 
 
 export const createColumn = async (req, res, next) => {
-    try{const column = await prisma.column.create({
-        data: {
-            name: req.body.name,
-            boardId: req.user.id
+    try{
+        const board = await prisma.board.findFirst({
+        where:{
+            id: req.app.locals.boardId
         }
     })
 
-    res.json({message: `Created ${column.name} board`})}
+    // const column = await prisma.column.create({
+    //     data: {
+    //         name: req.body.name,
+    //         boardId: board.id
+    //     }
+    // })
+
+   console.log(board)
+    
+
+    res.json({message: 'hey'})}
     catch(err){
+        console.error(err)
         next(err)
     }
 }
 
 export const getColumns = async (req, res, next) => {
-    try{ const column = await prisma.column.findMany({
+    try{
+    const column = await prisma.column.findMany({
          
      })
+
+     console.log(req.app.locals)
  
-     res.json({data: column})}
+     res.json({data: "hey"})}
      catch(err){next(err)}
  }
 

@@ -3,6 +3,7 @@ import morgan from 'morgan'
 import cors from 'cors'
 import userRouter from './routes/userRouter'
 import boardRouter from './routes/boardRouter'
+import columnRouter from './routes/columnRouter'
 import { protect } from './modules/auth'
 import { handleRouteErrors } from './modules/middleware'
 
@@ -14,6 +15,7 @@ app.use(express.json())
 app.use(express.urlencoded({extended: true}))
 
 app.use("/api", protect, boardRouter)
+app.use("/api", protect, columnRouter)
 
 app.use(userRouter)
 
