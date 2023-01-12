@@ -59,6 +59,9 @@ export const getBoards = async (req, res, next) => {
    try{ const board = await prisma.board.findMany({
         where: {
             belongsToId: req.user.id
+        },
+        include: {
+            columns: true
         }
     })
 
@@ -89,11 +92,22 @@ export const deleteBoard = async (req, res, next) => {
 }
 
 export const editBoard = async (req, res, next) => {
-    try{const board = await prisma.board.findFirst({
+    try{
+        const {name, ...column} = req.body
+        const columnArray = []
+
+        for (const [key, value] of Object.entries(column)) {
+            columnArray.push({name: value});
+          }
+
+        const board = await prisma.board.findFirst({
         where: {
             belongsToId: req.user.id,
-            id: req.params.id
-        }    
+            id: req.params.id,
+        },
+        include: {
+            columns: true
+        }
     })
 
     const updatedBoard = await prisma.board.update({
@@ -101,11 +115,14 @@ export const editBoard = async (req, res, next) => {
             id: board.id,
         },
         data: {
-            name: req.body.name
+            name: req.body.name,
+           
+        },
+        
+        include: {
+            columns:true
         }
     })
-
-    console.log(req.app.locals)
 
     res.json({message: `Changes were made to ${board.name}`, original: board, updates: updatedBoard })}
     catch(err){

@@ -5,9 +5,9 @@ import { handleValidationErrors } from "../modules/middleware"
 
 const router = Router()
 
-router.post('/column', body('name').isString(), handleValidationErrors, createColumn)
+router.post('/board/:boardId/column', body('name').isString(), handleValidationErrors, createColumn)
 
-router.get('board/:id/column', getColumns)
+router.get('column/:id', getColumns)
 
 router.delete('board/:id/column/column/:columnId', deleteColumn)
 

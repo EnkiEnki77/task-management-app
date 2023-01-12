@@ -13,15 +13,22 @@ export const handleValidationErrors = (req, res, next) => {
 }
 
 export const handleRouteErrors = (error, req, res, next) => {
-    if(error.type == 'auth'){
+    if(error.status == 401){
+        console.error(error.message)
         res.status(401)
-        .json({ message: 'unauthorized' })
-    }else if(error.type == 'input'){
+        res.json({ message: 'unauthorized', error })
+    }else if(error.status == 400){
+        console.error(error.message)
         res.status(400)
-        .json({ message: 'Invalid input' })
+        res.json({ message: 'Invalid input', error })
+    }else if(error.status == 404){
+        console.error(error.message)
+        res.status(404)
+        res.json({ message: 'Not found', error })
     }else{
+        console.error(error.message)
         res.status(500)
-        .json({ message: 'server error' })
+        res.json({ message: 'server error', error })
     }
 }
 

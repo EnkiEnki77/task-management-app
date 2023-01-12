@@ -5,23 +5,20 @@ export const createColumn = async (req, res, next) => {
     try{
         const board = await prisma.board.findFirst({
         where:{
-            id: req.app.locals.boardId
+            id: req.params.boardId
         }
     })
 
-    // const column = await prisma.column.create({
-    //     data: {
-    //         name: req.body.name,
-    //         boardId: board.id
-    //     }
-    // })
+    const column = await prisma.column.create({
+        data: {
+            name: req.body.name,
+            boardId: board.id
+        }
+    })
 
-   console.log(board)
-    
-
-    res.json({message: 'hey'})}
+    res.json({message: column})}
     catch(err){
-        console.error(err)
+       
         next(err)
     }
 }
