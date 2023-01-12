@@ -7,7 +7,7 @@ const router = Router()
 
 router.post('/board/:boardId/column', body('name').isString(), handleValidationErrors, createColumn)
 
-router.get('column/:id', getColumns)
+router.get('/board/:boardId/column', getColumns)
 
 router.delete('board/:id/column/column/:columnId', deleteColumn)
 

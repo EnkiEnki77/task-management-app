@@ -25,13 +25,14 @@ export const createColumn = async (req, res, next) => {
 
 export const getColumns = async (req, res, next) => {
     try{
+    
     const column = await prisma.column.findMany({
-         
+         where: {
+            boardId: req.params.boardId
+         }
      })
-
-     console.log(req.app.locals)
  
-     res.json({data: "hey"})}
+     res.json({data: column})}
      catch(err){next(err)}
  }
 
