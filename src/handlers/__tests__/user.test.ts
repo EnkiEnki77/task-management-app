@@ -8,9 +8,21 @@ import { faker } from '@faker-js/faker';
 
 const options = { method: 'GET', }
 
-describe('user handler', () => {
+describe('POST /register', () => {
 
-    it('token should be truthy', async () => {
+    it('token should be truthy meaning user was created', async () => {
+        let token = '';
+        const user = {username: faker.name.firstName(), password: faker.internet.password()}
+        const response = await request(app).post('/register').send(user);
+        token = response.body.token;
+
+        expect(token).toBeTruthy()
+    })
+})
+
+describe('POST /signin', () => {
+
+    it('token should be truthy meaaning user was signed in', async () => {
         let token = '';
         const user = {username: faker.name.firstName(), password: faker.internet.password()}
         const response = await request(app).post('/register').send(user);
