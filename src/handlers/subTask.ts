@@ -59,21 +59,35 @@ export const getSubtasks = async (req, res, next) => {
      catch(err){next(err)}
  }
 
- export const deleteColumn = async (req, res, next) => {
-    try{const column = await prisma.column.findFirst({
-        where: {
-            id:req.params.columnId,
-            boardId: req.params.boardId,
+ export const deleteSubtask = async (req, res, next) => {
+    try{  const column = await prisma.column.findFirst({
+        where:{
+            id: req.params.columnId,
+            boardId: req.params.boardId
         }
     })
 
-    const deleteColumn = await prisma.column.delete({
-        where: {
-            id: column.id, 
+    const task = await prisma.task.findFirst({
+        where:{
+            id: req.params.taskId,
+            columnId: column.id,
         }
     })
 
-    res.json({message:`The ${deleteColumn.name} column was deleted from the database.`})}
+    const subTask = await prisma.subtask.findFirst({
+        where: {
+            id: req.params.subtaskId,
+            taskId: task.id
+        }
+    })
+
+    const deleteSubTask = await prisma.subtask.delete({
+        where: {
+            id: subTask.id
+        }
+    })
+
+    res.json({message:`The ${deleteSubTask.title} subtask was deleted from the database.`})}
     catch(err){
         next(err)
     }

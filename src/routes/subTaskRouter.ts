@@ -1,7 +1,7 @@
 import {Router} from "express"
 import {body} from 'express-validator'
 import { handleValidationErrors } from "../modules/middleware"
-import { createSubtask, getSubtasks} from "../handlers/subTask"
+import { createSubtask, deleteSubtask, getSubtasks} from "../handlers/subTask"
 
 const router = Router()
 
@@ -11,7 +11,7 @@ router.get('/board/:boardId/column/:columnId/task/:taskId/subtask', getSubtasks)
 
 // router.get('/board/:boardId/column/:columnId/task')
 
-// router.delete('/board/:boardId/column/:columnId/task/:taskId')
+router.delete('/board/:boardId/column/:columnId/task/:taskId/subtask/:subtaskId', deleteSubtask)
 
 // router.put('/board/:boardId/column/:columnId/task/:taskId')
 
