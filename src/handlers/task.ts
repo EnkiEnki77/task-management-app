@@ -72,13 +72,23 @@ export const getTask = async (req, res, next) => {
         }
     })
 
-    const deleteColumn = await prisma.column.delete({
+    const task = await prisma.task.findFirst({
         where: {
-            id: column.id, 
+            columnId:column.id,
+            id: req.params.taskId
         }
     })
 
-    res.json({message:`The ${deleteColumn.name} column was deleted from the database.`})}
+
+
+    const deleteTask = await prisma.task.delete({
+        where: {
+            id: task.id
+
+        }
+    })
+
+    res.json({message:`The ${deleteTask.title} task was deleted from the database.`})}
     catch(err){
         next(err)
     }
