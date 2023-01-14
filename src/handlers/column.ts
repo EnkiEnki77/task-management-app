@@ -29,6 +29,13 @@ export const getColumns = async (req, res, next) => {
     const column = await prisma.column.findMany({
          where: {
             boardId: req.params.boardId
+         },
+         include:{
+            tasks:{
+                include: {
+                    subtasks: true
+                }
+            }
          }
      })
  
@@ -39,18 +46,18 @@ export const getColumns = async (req, res, next) => {
  export const deleteColumn = async (req, res, next) => {
     try{const column = await prisma.column.findFirst({
         where: {
-            id:req.params.id,
-            boardId: req.user.id,
+            id:req.params.columnId,
+            boardId: req.params.boardId,
         }
     })
 
-    const deleteBoard = await prisma.column.delete({
+    const deleteColumn = await prisma.column.delete({
         where: {
             id: column.id, 
         }
     })
 
-    res.json({message:`The ${deleteBoard.name} board was deleted from the database.`})}
+    res.json({message:`The ${deleteColumn.name} column was deleted from the database.`})}
     catch(err){
         next(err)
     }

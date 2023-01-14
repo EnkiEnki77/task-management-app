@@ -6,6 +6,7 @@ import boardRouter from './routes/boardRouter'
 import columnRouter from './routes/columnRouter'
 import { protect } from './modules/auth'
 import { handleRouteErrors } from './modules/middleware'
+import taskRouter from './routes/taskRouter'
 
 const app = express()
 
@@ -16,6 +17,7 @@ app.use(express.urlencoded({extended: true}))
 
 app.use("/api", protect, boardRouter)
 app.use("/api", protect, columnRouter)
+app.use("/api", protect, taskRouter)
 
 app.use(userRouter)
 

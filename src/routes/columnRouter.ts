@@ -9,6 +9,6 @@ router.post('/board/:boardId/column', body('name').isString(), handleValidationE
 
 router.get('/board/:boardId/column', getColumns)
 
-router.delete('board/:id/column/column/:columnId', deleteColumn)
+router.delete('/board/:boardId/column/:columnId', deleteColumn)
 
 export default router 
