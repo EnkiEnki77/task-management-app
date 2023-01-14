@@ -11,8 +11,6 @@ datasource db {
 }
 
 model User {
-  //here we are defining the name of the field, its type, the directive, and what it defaults to, in this case a uuid
-  //which returns a unique string.
   id        String   @id @default(uuid())
   createdAt DateTime @default(now())
   username  String   @unique

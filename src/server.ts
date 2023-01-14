@@ -16,7 +16,7 @@ app.use(morgan("dev"))
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
 
-app.use("/api", protect, boardRouter)
+app.use("/api", protect,  boardRouter)
 app.use("/api", protect, columnRouter)
 app.use("/api", protect, taskRouter)
 app.use("/api", protect, subTaskRouter)
