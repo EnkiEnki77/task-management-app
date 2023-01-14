@@ -87,12 +87,41 @@ export const getTask = async (req, res, next) => {
 export const editTask = async (req, res, next) => {
     try{
     
-    const column = await prisma.column.findMany({
-         where: {
-            boardId: req.params.boardId
+        const column = await prisma.column.findFirst({
+            where: {
+               id: req.params.columnId,
+               boardId: req.params.boardId
+            },
+            include: {
+               tasks: true
+            }
+        })
+   
+        const task = await prisma.task.findFirst({
+           where: {
+              id: req.params.taskId,
+              columnId: column.id
+           }
+       })
+
+       const newStatus = await prisma.column.findFirst({
+        where: {
+            name: req.body.status
          }
-     })
+       })
+
+       const updateTask = await prisma.task.update({
+        where: {
+            id: task.id
+        }, 
+        data: {
+            title: req.body.title,
+            description: req.body.description,
+            status: req.body.status,
+            columnId: column.name !== req.body.status ? newStatus.id : task.columnId
+        }
+       })
  
-     res.json({data: column})}
+     res.json({message: updateTask})}
      catch(err){next(err)}
  }
