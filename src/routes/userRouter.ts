@@ -6,6 +6,6 @@ import { body } from 'express-validator/src/middlewares/validation-chain-builder
 const router = Router()
 
 router.post('/register', body('username').isString(), body('password').isString(), handleValidationErrors, createUser)
-router.post('/signin', body('name').isString(), body('password').isString(), handleValidationErrors, signIn)
+router.post('/signin', body('username').isString(), body('password').isString(), handleValidationErrors, signIn)
 
 export default router
