@@ -12,7 +12,7 @@ export const createUser = async (req, res, next) => {
     const token = createJWT(user)
     res.json({token})}
     catch(err) {
-        err.type = "input"
+        // err.type = "input"
         next(err)
     }
 }

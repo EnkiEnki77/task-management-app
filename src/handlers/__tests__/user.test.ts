@@ -9,7 +9,8 @@ import { faker } from '@faker-js/faker';
 const options = { method: 'GET', }
 
 describe('POST /register', () => {
-    const user = {username: 'fuuuuuuck', password: 'ty'}
+    const user = {username: faker.name.firstName(), password: faker.internet.password()}
+    const oldUser = {username: 'layman212@gmail.com', password: faker.internet.password()}
 
     it('token should be truthy meaning user was created', async () => {
         let token = '';
@@ -17,6 +18,14 @@ describe('POST /register', () => {
         token = response.body.token;
 
         expect(token).toBeTruthy()
+    })
+
+    it('should return error if user already exists', async () => {
+        let token = '';
+        const response = await request(app).post('/register').send(oldUser);
+        token = response.body.token;
+
+        expect(response.statusCode).toBe(500)
     })
 })
 

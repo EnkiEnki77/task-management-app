@@ -26,9 +26,9 @@ export const handleRouteErrors = (error, req, res, next) => {
         res.status(404)
         res.json({ message: 'Not found', error })
     }else{
-        console.error(error.message)
+        console.error(error)
         res.status(500)
-        res.json({ message: 'server error', error })
+        res.json({ message: 'server error', error: error })
     }
 }
 
