@@ -1,12 +1,6 @@
-// import * as user from '../user'
-// import sinon from "sinon"
-// import { stub, match } from 'sinon'
-// import { mockRequest, mockResponse } from 'mock-req-res'
 import request from 'supertest'
 import app from '../../server'
 import { faker } from '@faker-js/faker';
-
-const options = { method: 'GET', }
 
 describe('POST /register', () => {
     const user = {username: faker.name.firstName(), password: faker.internet.password()}
